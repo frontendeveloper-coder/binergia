@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Опрос: Выбор тем вебинаров | Бинергия</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ed 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        /* Header */
+        .form-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 40px;
+            position: relative;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+        }
+
+        .form-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .form-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 800px;
+        }
+
+        /* Main Form */
+        .form-main {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .form-main {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Topics Section */
+        .topics-section {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 30px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .topics-section h2 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .topics-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .topic-item {
+            background: white;
+            border: 1px solid #eaeaea;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .topic-item:hover {
+            border-color: #3498db;
+            transform: translateX(5px);
+        }
+
+        .topic-item.selected {
+            border-color: #3498db;
+            background: #f0f7ff;
+        }
+
+        .topic-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .topic-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 3px;
+            accent-color: #3498db;
+        }
+
+        .topic-text {
+            flex: 1;
+        }
+
+        .topic-text h3 {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .selected-count {
+            background: #3498db;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        /* Contact Form */
+        .contact-form-section {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 30px;
+        }
+
+        .contact-form-section h2 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .form-group label i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(231, 76, 60, 0.3);
+        }
+
+        .submit-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Success Message */
+        .success-message {
+            text-align: center;
+            padding: 50px 30px;
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            border-radius: 16px;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #28a745;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: white;
+            font-size: 2.5rem;
+        }
+
+        .success-message h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        /* Instructions Box */
+        .instructions-box {
+            background: #e8f4fc;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 30px;
+            border-left: 4px solid #3498db;
+        }
+
+        .instructions-box h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .instructions-box ol {
+            margin-left: 20px;
+            color: #475569;
+        }
+
+        .instructions-box li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .form-footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+
+        .company-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #3498db;
+        }
+
+        .form-footer p {
+            color: #bdc3c7;
+            font-size: 0.9rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-header {
+                padding: 30px 20px;
+            }
+            
+            .form-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .form-main {
+                padding: 20px;
+                gap: 20px;
+            }
+            
+            .topics-section,
+            .contact-form-section {
+                padding: 20px;
+            }
+            
+            .form-footer {
+                padding: 20px;
+            }
+        }
+
+        /* Custom Scrollbar */
+        .topics-section::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .topics-section::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .topics-section::-webkit-scrollbar-thumb {
+            background: #3498db;
+            border-radius: 10px;
+        }
+
+        .topics-section::-webkit-scrollbar-thumb:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="form-header">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Вернуться на главную
+            </a>
+            
+            <h1>Опрос: Выбор тем вебинаров</h1>
+            <p class="form-subtitle">
+                Отметьте темы, которые будут наиболее полезны для вашей профессиональной деятельности в стоматологии
+            </p>
+        </header>
+
+        <!-- Main Form -->
+        <div class="form-main">
+            <!-- Topics Section -->
+            <div class="topics-section">
+                <div class="selected-count">Выбрано: <span id="selectedCount">0</span> тем</div>
+                <h2>Темы вебинаров</h2>
+                
+                <div class="topics-list" id="topicsList">
+                    <!-- Темы будут вставлены через JavaScript -->
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form-section">
+                <h2>Ваши данные</h2>
+                
+                <form id="applicationForm">
+                    <div class="form-group">
+                        <label for="name">
+                            <i class="fas fa-user"></i> Ваше имя
+                        </label>
+                        <input type="text" id="name" name="name" required placeholder="Иван Иванов">
+                        <div class="error-message" id="nameError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">
+                            <i class="fas fa-envelope"></i> Email
+                        </label>
+                        <input type="email" id="email" name="email" required placeholder="ivan@example.com">
+                        <div class="error-message" id="emailError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="selectedTopics">
+                            <i class="fas fa-list-check"></i> Выбранные темы
+                        </label>
+                        <textarea id="selectedTopics" name="selectedTopics" rows="6" readonly placeholder="Выберите темы выше"></textarea>
+                    </div>
+                    
+                    <button type="button" class="submit-btn" id="submitBtn" onclick="sendByMail()">
+                        <i class="fas fa-paper-plane"></i>
+                        Отправить результаты
+                    </button>
+                    
+                    <div class="instructions-box">
+                        <h4><i class="fas fa-info-circle"></i> Как отправить результаты:</h4>
+                        <ol>
+                            <li>Выберите интересующие темы выше</li>
+                            <li>Заполните ваше имя и email</li>
+                            <li>Нажмите кнопку "Отправить результаты"</li>
+                            <li>Откроется ваш почтовый клиент с готовым письмом</li>
+                            <li>Нажмите "Отправить" в почтовом клиенте</li>
+                        </ol>
+                        <p style="margin-top: 10px; font-weight: 500; color: #2c3e50;">
+                            Письмо будет отправлено на адрес: <strong>M.yarmush@binergia.ru</strong>
+                        </p>
+                    </div>
+                </form>
+                
+                <div id="successMessage" class="success-message">
+                    <div class="success-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <h3>Письмо готово к отправке!</h3>
+                    <p>Откройте ваш почтовый клиент и нажмите "Отправить"</p>
+                    <p>Если письмо не открылось автоматически, создайте новое письмо на адрес:</p>
+                    <p style="font-weight: 600; margin: 10px 0;">M.yarmush@binergia.ru</p>
+                    <p>и скопируйте текст из поля "Выбранные темы" выше.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="form-footer">
+            <div class="company-name">Компания «Бинергия»</div>
+            <p>Благодарим вас за участие в формировании программы вебинаров. 
+               Мы ценим ваше мнение и стремимся сделать обучение максимально полезным для вас.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Темы вебинаров
+        const webinarTopics = [
+            "Почему качественная субстанция, вспомогательные вещества могут влиять на количество побочных эффектов у пациента?",
+            "Медико-правовые аспекты в современной стоматологии",
+            "Опыт применения коллагеновых матриц после дентальной имплантации",
+            "Одонтогенный верхнечелюстной синусит: тактика лор-врача и врача-стоматолога",
+            "Токсическое воздействие лекарственных средств, применяемых в хирургической стоматологии и челюстно-лицевой хирургии",
+            "Вопросы выбора местного анестетика в терапевтической, ортопедической и хирургической стоматологии (обзор всех аспектов)",
+            "Ретроспективный анализ динамики состояния полости рта у пациенток с постменопаузальным остеопорозом, находящихся на комплексной антиостеопоретической терапии бисфосфонатами",
+            "Сложные клинические случаи в эндодонтии - простые пути решения",
+            "Техники местного обезболивания. Важность проведения аспирационной пробы.",
+            "Премедикация: что назначить при «горячем» зубе и как не навредить коморбидному пациенту",
+            "Современные методы лечения орофациальной боли",
+            "Пародонтальное обезболивание: интралигаментарное, интрасептальное и внутрикостное (обзор всех аспектов)",
+            "Инфильтрационная техника: подслизистое введение, метод импрессии и учет индивидуальной анатомии кортикальной пластинки",
+            "Мандибулярная блокада: причины неудач и методы достижения успеха.",
+            "Хирургические процедуры в полости рта для врачей общей практики: достижение максимального успеха и предотвращение осложнений.",
+            "Профилактика травм от уколов иглой в стоматологической практике. Предотвращение травм от уколов иглой в стоматологической практике",
+            "Общий метод поддержания спокойствия пациентов до и во время лечения. Создание расслабляющей и спокойной обстановки. Улучшение коммуникации с пациентами.",
+            "Местная анестезия - максимальный успех, минимизация осложнений. Обеспечение успешной местной анестезии для пациентов, у которых недостаточная эффективность местной анестезии."
+        ];
+
+        // Выбранные темы
+        let selectedTopics = [];
+
+        // Инициализация страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Заполняем список тем
+            const topicsList = document.getElementById('topicsList');
+            webinarTopics.forEach((topic, index) => {
+                const topicItem = document.createElement('div');
+                topicItem.className = 'topic-item';
+                topicItem.innerHTML = `
+                    <div class="topic-checkbox">
+                        <input type="checkbox" id="topic${index}" value="${topic}">
+                        <div class="topic-text">
+                            <h3>${topic}</h3>
+                        </div>
+                    </div>
+                `;
+                topicsList.appendChild(topicItem);
+                
+                // Добавляем обработчик клика
+                const checkbox = topicItem.querySelector('input[type="checkbox"]');
+                checkbox.addEventListener('change', function() {
+                    updateSelectedTopics(this);
+                    updateTopicItemStyle(this, topicItem);
+                });
+                
+                // Обработчик клика на всю карточку
+                topicItem.addEventListener('click', function(e) {
+                    if (e.target.type !== 'checkbox') {
+                        checkbox.checked = !checkbox.checked;
+                        checkbox.dispatchEvent(new Event('change'));
+                    }
+                });
+            });
+        });
+
+        // Обновление выбранных тем
+        function updateSelectedTopics(checkbox) {
+            if (checkbox.checked) {
+                selectedTopics.push(checkbox.value);
+            } else {
+                const index = selectedTopics.indexOf(checkbox.value);
+                if (index > -1) {
+                    selectedTopics.splice(index, 1);
+                }
+            }
+            
+            // Обновляем счетчик
+            document.getElementById('selectedCount').textContent = selectedTopics.length;
+            
+            // Обновляем текстовое поле с выбранными темами
+            const topicsText = selectedTopics.map((topic, index) => 
+                `${index + 1}. ${topic}`
+            ).join('\n\n');
+            
+            document.getElementById('selectedTopics').value = topicsText;
+            
+            // Обновляем состояние кнопки отправки
+            document.getElementById('submitBtn').disabled = selectedTopics.length === 0;
+        }
+
+        // Обновление стиля карточки темы
+        function updateTopicItemStyle(checkbox, topicItem) {
+            if (checkbox.checked) {
+                topicItem.classList.add('selected');
+            } else {
+                topicItem.classList.remove('selected');
+            }
+        }
+
+        // Валидация формы
+        function validateForm() {
+            let isValid = true;
+            
+            // Валидация имени
+            const name = document.getElementById('name').value.trim();
+            const nameError = document.getElementById('nameError');
+            if (name.length < 2) {
+                nameError.textContent = 'Имя должно содержать минимум 2 символа';
+                nameError.style.display = 'block';
+                isValid = false;
+            } else {
+                nameError.style.display = 'none';
+            }
+            
+            // Валидация email
+            const email = document.getElementById('email').value.trim();
+            const emailError = document.getElementById('emailError');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                emailError.textContent = 'Введите корректный email адрес';
+                emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+            
+            // Проверка выбора тем
+            if (selectedTopics.length === 0) {
+                alert('Пожалуйста, выберите хотя бы одну тему вебинара');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        // Отправляем через mailto
+        function sendByMail() {
+            // Валидация
+            if (!validateForm()) return;
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const selectedTopicsText = document.getElementById('selectedTopics').value;
+            
+            // Формируем письмо
+            const subject = "Результаты опроса: Выбор тем вебинаров";
+            const body = `
+Здравствуйте!
+
+Результаты опроса по выбору тем для вебинаров от компании "Бинергия":
+
+Имя: ${name}
+Email: ${email}
+
+Выбранные темы (${selectedTopics.length}):
+
+${selectedTopicsText}
+
+Дата отправки: ${new Date().toLocaleString('ru-RU')}
+
+--
+Это письмо отправлено через форму опроса на сайте.
+            `;
+            
+            // Создаем mailto ссылку
+            const mailtoLink = `mailto:M.yarmush@binergia.ru?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            // Показываем сообщение об успехе
+            document.getElementById('applicationForm').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // Прокручиваем к сообщению
+            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+            
+            // Открываем почтовый клиент (с задержкой, чтобы пользователь увидел сообщение)
+            setTimeout(() => {
+                window.location.href = mailtoLink;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

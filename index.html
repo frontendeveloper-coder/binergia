@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Опрос: Выбор тем вебинаров | Бинергия</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            color: #1e293b;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 70px 50px;
+            text-align: center;
+            position: relative;
+        }
+
+        .survey-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .header h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .header-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        /* Company Info */
+        .company-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 16px;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .company-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .company-message {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 60px 50px;
+        }
+
+        .section-title {
+            font-size: 2.3rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 5px;
+            background: linear-gradient(90deg, #2563eb, #3b82f6);
+            border-radius: 3px;
+            margin: 15px auto;
+        }
+
+        /* Purpose Section */
+        .purpose-section {
+            max-width: 900px;
+            margin: 0 auto 60px;
+            background: #f8fafc;
+            padding: 45px;
+            border-radius: 20px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .purpose-section h3 {
+            font-size: 1.8rem;
+            color: #1e293b;
+            margin-bottom: 25px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .purpose-section h3 i {
+            color: #2563eb;
+        }
+
+        .purpose-text {
+            font-size: 1.2rem;
+            color: #475569;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .purpose-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .purpose-list li {
+            padding: 15px 0 15px 45px;
+            position: relative;
+            font-size: 1.1rem;
+            color: #475569;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .purpose-list li:last-child {
+            border-bottom: none;
+        }
+
+        .purpose-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            top: 15px;
+            color: #2563eb;
+            font-size: 2.5rem;
+            line-height: 0;
+        }
+
+        /* Survey Details */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .detail-card {
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .detail-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.1);
+            border-color: #2563eb;
+        }
+
+        .detail-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: #2563eb;
+            font-size: 1.8rem;
+        }
+
+        .detail-card h4 {
+            font-size: 1.4rem;
+            color: #1e293b;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .detail-card p {
+            color: #64748b;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            max-width: 900px;
+            margin: 0 auto 60px;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #2563eb, #60a5fa);
+            border-radius: 2px;
+        }
+
+        .step {
+            display: flex;
+            gap: 25px;
+            position: relative;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 16px;
+            border-left: 4px solid #2563eb;
+        }
+
+        .step-content h4 {
+            font-size: 1.3rem;
+            color: #1e293b;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .step-content p {
+            color: #475569;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            border-radius: 20px;
+            margin: 60px 0;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: #475569;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .start-survey-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            text-decoration: none;
+            padding: 22px 50px;
+            border-radius: 16px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.3);
+        }
+
+        .start-survey-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(16, 185, 129, 0.4);
+        }
+
+        .start-survey-btn i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .start-survey-btn:hover i {
+            transform: translateX(8px);
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #60a5fa;
+        }
+
+        .footer-message {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+
+        .contact-item i {
+            color: #60a5fa;
+        }
+
+        .copyright {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #334155;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 50px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2.3rem;
+            }
+            
+            .header-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .main-content {
+                padding: 40px 20px;
+            }
+            
+            .section-title {
+                font-size: 1.9rem;
+            }
+            
+            .purpose-section {
+                padding: 30px;
+            }
+            
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .step {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .step-number {
+                align-self: flex-start;
+            }
+            
+            .cta-section {
+                padding: 40px 20px;
+            }
+            
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+            
+            .footer {
+                padding: 40px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                border-radius: 16px;
+            }
+            
+            .header h1 {
+                font-size: 1.9rem;
+            }
+            
+            .start-survey-btn {
+                padding: 18px 30px;
+                font-size: 1.1rem;
+                width: 100%;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .detail-card, .step, .cta-section {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="survey-badge">
+                <i class="fas fa-poll"></i> ОПРОС
+            </div>
+            
+            <h1>Выбор тем для будущих вебинаров</h1>
+            
+            <p class="header-subtitle">
+                Ваше мнение поможет нам сформировать программу, 
+                максимально соответствующую профессиональным интересам стоматологов.
+            </p>
+            
+            <div class="company-info">
+                <div class="company-name">
+                    <i class="fas fa-handshake"></i>
+                    Компания «Бинергия»
+                </div>
+                <p class="company-message">
+                    Ценим сотрудничество с Вами! Мы планируем развить систему бесплатных вебинаров 
+                    и готовы предложить интересные темы для врачей ваших стоматологических клиник.
+                </p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Purpose Section -->
+            <section class="purpose-section">
+                <h3><i class="fas fa-bullseye"></i> Цель опроса</h3>
+                
+                <p class="purpose-text">
+                    Мы хотим узнать, какие темы будущих вебинаров будут максимально интересны и полезны 
+                    для врачей-стоматологов. Ваше мнение поможет нам сформировать программу обучения, 
+                    которая действительно отвечает потребностям практикующих специалистов.
+                </p>
+                
+                <ul class="purpose-list">
+                    <li>Определить наиболее востребованные темы в стоматологии</li>
+                    <li>Сформировать расписание вебинаров на основе ваших предпочтений</li>
+                    <li>Пригласить лучших экспертов по выбранным направлениям</li>
+                    <li>Обеспечить максимальную практическую пользу от обучения</li>
+                </ul>
+            </section>
+
+            <!-- Survey Details -->
+            <section>
+                <h2 class="section-title">Детали опроса</h2>
+                
+                <div class="details-grid">
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <i class="fas fa-list-check"></i>
+                        </div>
+                        <h4>18 тем на выбор</h4>
+                        <p>Ознакомьтесь с предложенными темами и отметьте те, которые вас интересуют</p>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h4>5-7 минут</h4>
+                        <p>Опрос займет всего несколько минут вашего времени</p>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <div class="detail-icon">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h4>Для практикующих врачей</h4>
+                        <p>Темы составлены с учетом актуальных вопросов клинической практики</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How It Works -->
+            <section class="how-it-works">
+                <h2 class="section-title">Как проходит опрос</h2>
+                
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Ознакомление с темами</h4>
+                            <p>Изучите список предложенных тем будущих вебинаров, охватывающих различные направления стоматологии</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Выбор интересующих тем</h4>
+                            <p>Отметьте галочкой темы, которые вы считаете наиболее полезными для вашей профессиональной деятельности</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Заполнение контактных данных</h4>
+                            <p>Укажите ваши данные для получения информации о запланированных вебинарах</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Отправка результатов</h4>
+                            <p>Мы проанализируем ваши предпочтения и составим программу вебинаров</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="cta-section">
+                <h2>Готовы выбрать темы?</h2>
+                <p>
+                    Ваше мнение очень важно для нас! Помогите создать программу вебинаров, 
+                    которая будет максимально полезной для стоматологического сообщества.
+                </p>
+                <a href="pages/form.html" class="start-survey-btn">
+                    <span>Начать</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <p style="margin-top: 25px; font-size: 1rem; color: #64748b;">
+                    <i class="fas fa-lock"></i> Ваши данные защищены и используются только для организации вебинаров
+                </p>
+            </section>
+        </main>
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-logo">Бинергия</div>
+            
+            <p class="footer-message">
+                Компания «Бинергия» ценит сотрудничество с Вами и стремится сделать его интереснее 
+                и эффективнее через качественное образование и обмен профессиональным опытом.
+            </p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>M.yarmush@binergia.ru</span>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+7 (968) 863-66-38</span>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Россия</span>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2024 Компания «Бинергия». Все права защищены.
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Простая анимация появления элементов при прокрутке
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Наблюдаем за всеми анимируемыми элементами
+            document.querySelectorAll('.detail-card, .step, .cta-section').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
