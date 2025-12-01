@@ -33,7 +33,7 @@
 
         /* Header */
         .form-header {
-            background: linear-gradient(135deg, #558ec7 0%, #3498db 100%);
+            background: linear-gradient(135deg, #0d47a1 0%, #3498db 100%);
             color: white;
             padding: 40px;
             position: relative;
@@ -373,6 +373,129 @@
 
         .topics-section::-webkit-scrollbar-thumb:hover {
             background: #2980b9;
+        }
+        
+         /* --- Улучшенная мобильная адаптация --- */
+      @media (max-width: 600px) {
+        body {
+          padding: 0px;
+          border-radius: 0px;
+        }
+
+        .container {
+          border-radius: 0px;
+        }
+
+        /* Header */
+        .form-header {
+          padding: 25px 15px;
+        }
+
+        .form-header h1 {
+          font-size: 1.6rem;
+          line-height: 1.3;
+        }
+
+        .form-subtitle {
+          font-size: 0.95rem;
+          margin-top: 10px;
+        }
+
+        /* Main layout */
+        .form-main {
+          padding: 20px 15px;
+          gap: 25px;
+        }
+
+        /* Topics */
+        .topics-section {
+          padding: 20px 15px;
+          max-height: 500px;
+        }
+
+        .selected-count {
+          font-size: 0.85rem;
+          padding: 4px 12px;
+        }
+
+        .topic-item {
+          padding: 15px;
+        }
+
+        .topic-text h3 {
+          font-size: 0.95rem;
+          line-height: 1.35;
+        }
+
+        /* Checkbox */
+        .topic-checkbox input[type="checkbox"] {
+          width: 18px;
+          height: 18px;
+          margin-top: 1px;
+        }
+
+        /* Contact section */
+        .contact-form-section {
+          padding: 20px 15px;
+        }
+
+        .form-group label {
+          font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+          padding: 13px;
+          font-size: 0.95rem;
+        }
+
+        textarea {
+          min-height: 100px;
+        }
+
+        /* Submit button */
+        .submit-btn {
+          padding: 16px;
+          font-size: 1rem;
+          border-radius: 10px;
+        }
+
+        /* Success message */
+        .success-message {
+          padding: 35px 20px;
+        }
+
+        .success-icon {
+          width: 65px;
+          height: 65px;
+          font-size: 2rem;
+        }
+
+        /* Instructions */
+        .instructions-box {
+          padding: 15px;
+        }
+
+        .instructions-box h4 {
+          font-size: 1rem;
+        }
+
+        .instructions-box ol {
+          margin-left: 18px;
+          font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .form-footer {
+          padding: 20px 15px;
+        }
+
+        .company-name {
+          font-size: 1.1rem;
+        }
+
+        .form-footer p {
+          font-size: 0.85rem;
         }
     </style>
 </head>
